@@ -10,10 +10,10 @@ export class ContactService {
 
   constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  getContacts(): Observable<any[]> {
-    const user = this.authService.getCurrentUser();
+  async getContacts(): Promise<Observable<any[]>> {
+    const user = await this.authService.getCurrentUser();
+  
     if (!user) {
-      // Retornar observable vacío si no hay usuario
       return new Observable<any[]>(observer => {
         observer.next([]);
         observer.complete();

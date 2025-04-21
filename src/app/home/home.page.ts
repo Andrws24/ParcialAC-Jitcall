@@ -8,6 +8,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonIte
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  standalone: false,
 })
 export class HomePage implements OnInit {
   contacts: any[] = [];  // Array para almacenar los contactos
@@ -15,14 +16,16 @@ export class HomePage implements OnInit {
   constructor(private contactService: ContactService) {}
 
   ngOnInit() {
-    this.contactService.getContacts().subscribe(
-      data => {
-        this.contacts = data;  // Asignamos los datos de los contactos al array
-      },
-      error => {
-        console.error('Error al cargar los contactos', error);  // Manejo de errores
-      }
-    );
+    this.contactService.getContacts().then(observable => {
+      observable.subscribe(
+        data => {
+          this.contacts = data;
+        },
+        error => {
+          console.error('Error al cargar los contactos', error);
+        }
+      );
+    });
   }
 }
 

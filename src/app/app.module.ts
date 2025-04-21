@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 // Importaciones necesarias para HTTP e Interceptor
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from './interceptors/auth.interceptor'; // Ajusta la ruta si está en otra carpeta
+import { TokenInterceptorService } from './services/token-interceptor.service'; // Ajusta la ruta si está en otra carpeta
 
 @NgModule({
   declarations: [AppComponent],

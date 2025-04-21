@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from 'src/environments/firebaseApp';
-
+import { onAuthStateChanged } from 'firebase/auth';
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +36,11 @@ export class AuthService {
     return signOut(auth);
   }
 
-  getCurrentUser(): User | null {
-    return auth.currentUser;
-  }
+  getCurrentUser(): Promise<User | null> {
+    return new Promise((resolve) => {
+      onAuthStateChanged(auth, (user) => {
+        resolve(user);
+      });
+    });
+}
 }
